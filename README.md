@@ -12,4 +12,6 @@ Aplicação Next.js para a vitrine e a operação da marca Lahris.
 
 Conecte o repositório ao Vercel e cadastre as mesmas variáveis de ambiente. A Vercel fará previews para pull requests e deploy da branch principal.
 
+O deploy configurado para Vercel publica apenas a calculadora em `/faca-voce-mesma`: qualquer outra rota é redirecionada para ela. Esse comportamento é exclusivo da Vercel; o ambiente local mantém todas as páginas.
+
 Antes de produção, crie buckets privados `product-images`, `quality-evidence` e `label-assets` no Supabase Storage, configure backup e crie o primeiro perfil administrador em `profiles` com o `id` do usuário do Supabase Auth.
