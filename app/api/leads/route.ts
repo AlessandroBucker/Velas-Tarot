@@ -1,0 +1,5 @@
+import { createClient } from "@supabase/supabase-js";
+import { NextResponse } from "next/server";
+import { z } from "zod";
+const schema=z.object({name:z.string().trim().min(2).max(120),email:z.string().email().max(255),phone:z.string().max(30).optional().nullable(),interest:z.string().max(120).optional().nullable(),consent:z.literal(true)});
+export async function POST(request:Request){const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:"Dados inválidos"},{status:400});const url=process.env.NEXT_PUBLIC_SUPABASE_URL;const key=process.env.SUPABASE_SERVICE_ROLE_KEY;if(!url||!key)return NextResponse.json({error:"Serviço indisponível"},{status:503});const supabase=createClient(url,key,{auth:{persistSession:false}});const {error}=await supabase.from("leads").insert({name:parsed.data.name,email:parsed.data.email,phone:parsed.data.phone||null,interests:parsed.data.interest?[parsed.data.interest]:[],consent_at:new Date().toISOString()});if(error)return NextResponse.json({error:"Não foi possível salvar"},{status:500});return NextResponse.json({ok:true},{status:201})}

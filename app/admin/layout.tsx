@@ -1,0 +1,5 @@
+import { BarChart3, Boxes, ClipboardList, Factory, LayoutDashboard, PackageSearch, Settings, ShoppingCart, Users } from "lucide-react";
+import Link from "next/link";
+import "./admin.css";
+const links = [[LayoutDashboard,"Visão geral","/admin"],[PackageSearch,"Produtos","/admin/produtos"],[Boxes,"Estoque","/admin/estoque"],[Factory,"Produção","/admin/producao"],[ClipboardList,"Qualidade","/admin/qualidade"],[ShoppingCart,"Vendas","/admin/vendas"],[Users,"Clientes","/admin/clientes"],[BarChart3,"Financeiro","/admin/financeiro"],[Settings,"Configurações","/admin/configuracoes"]] as const;
+export default function AdminLayout({children}:{children:React.ReactNode}) { return <div className="admin-shell"><aside className="admin-sidebar"><Link className="brand" href="/admin">lahris<span>.</span></Link><p className="workspace">GESTÃO ARTESANAL</p><nav>{links.map(([Icon,label,href])=><Link href={href} key={href}><Icon size={17}/>{label}</Link>)}</nav><div className="admin-user"><span>LM</span><div><strong>Larissa Martins</strong><small>Administrador</small></div></div></aside><section className="admin-main">{children}</section></div> }
